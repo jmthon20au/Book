@@ -12,18 +12,19 @@ bot.set_my_commands([telebot.types.BotCommand("/start", " 🤖 𝗦𝗧𝗔𝗥�
 #الكوماند
 @bot.message_handler(commands=["start"])
 def start(message):
-  bot.reply_to(message,f"اهلا بك ، ارسل الملف الان "
+    bot.reply_to(message,f"• 🧩 〈 مرحباً بك عزيزي في بوت قراءة الملفات بصيغة ( txt ) وارسال النص في البوت الرجاء ارسال الملف للقراءة 〉  📨") #رساله الترحيب
+
 @bot.message_handler(content_types=["document"])
-def handler_document(message):
+def handle_document(message):
    file_info = bot.get_file(message.document.file_id)
    downloaded_file = bot.download_file(file_info.file_path)
    file_name = message.document.file_name
    text = downloaded_file.decode("utf-8")
    bot.reply_to(message, "• النـص داخـل الـمـلف  {} هـو => \n\n {}".format(file_name, text))
 
-print("تم ✅✅") 
+print("\033[2;35m running") 
 bot.polling(none_stop=True)
 """
-✨ by means of @re_file_bot
-🔰 Channel : @my00002
+by means of @re_file_bot
+Channel : @my00002
 """ 
