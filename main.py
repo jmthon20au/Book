@@ -12,10 +12,7 @@ bot.set_my_commands([telebot.types.BotCommand("/start", " 🤖 𝗦𝗧𝗔𝗥�
 #الكوماند
 @bot.message_handler(commands=["start"])
 def start(message):
-    bot.reply_to(message,f"""
-    🌺 مرحباً بك عزيزي في بوت قراءة الملفات بصيغة ( txt ) وارسال النص في البوت الرجاء ارسال الملف للقراءة ✍ 📨
-
-*البوت لا يدعم ملفات PDF"""
+    bot.reply_to(message,f"اهلا بك ، ارسل الملف الان "
 @bot.message_handler(content_types=["document"])
 def handler_document(message):
    file_info = bot.get_file(message.document.file_id)
