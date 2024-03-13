@@ -17,7 +17,7 @@ def start(message):
 
 *البوت لا يدعم ملفات PDF"""
 @bot.message_handler(content_types=["document"])
-def handle_document(message):
+def handler_document(message):
    file_info = bot.get_file(message.document.file_id)
    downloaded_file = bot.download_file(file_info.file_path)
    file_name = message.document.file_name
