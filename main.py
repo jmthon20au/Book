@@ -1,6 +1,5 @@
 """
 by means of @DF_GD_D
-in a 2023/12/14
 Channel : @T62RS
 """ 
 import telebot  #مكتبة
@@ -12,8 +11,13 @@ bot.set_my_commands([telebot.types.BotCommand("/start", " 🤖 𝗦𝗧𝗔𝗥�
 #الكوماند
 @bot.message_handler(commands=["start"])
 def start(message):
-    bot.reply_to(message,f"• 🧩 〈 مرحباً بك عزيزي في بوت قراءة الملفات بصيغة ( txt ) وارسال النص في البوت الرجاء ارسال الملف للقراءة 〉  📨") #رساله الترحيب
+    bot.reply_to(message,f"""
+    🌺 مرحباً بك عزيزي في بوت قراءة الملفات بصيغة ( txt ) وارسال النص في البوت الرجاء ارسال الملف للقراءة ✍ 📨
 
+*البوت لا يدعم ملفات PDF
+قناة التحديثات : @my00002
+""")
+    
 @bot.message_handler(content_types=["document"])
 def handle_document(message):
    file_info = bot.get_file(message.document.file_id)
@@ -22,7 +26,7 @@ def handle_document(message):
    text = downloaded_file.decode("utf-8")
    bot.reply_to(message, "• النـص داخـل الـمـلف  {} هـو => \n\n {}".format(file_name, text))
 
-print("\033[2;35m running") 
+print("تم✅") 
 bot.polling(none_stop=True)
 """
 by means of @re_file_bot
