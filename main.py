@@ -30,5 +30,6 @@ print("تم✅")
 bot.polling(none_stop=True)
 """
 by means of @re_file_bot
+dev : @altaee_z
 Channel : @my00002
 """ 
