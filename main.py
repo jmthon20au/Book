@@ -5,10 +5,10 @@ from user_agent import generate_user_agent
 import re
 import random
 
-bot = telebot.TeleBot("6532286475:AAFIjc53deB8e03_jZRxmpEjuS2ppYGJd2Q")
+bot = telebot.TeleBot("6532286475:AAF-kAIDGYHQiZ2rH62RCXC8MZLKjH4gvNk")
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-@bot.message_handler(func=lambda message: message.text == "/start" or "السورس")
+@bot.message_handler(func=lambda message: message.text == "/start" )
 def send_source(message):
     url = 'https://t.me/my00002/235' 
     chat_id = message.chat.id
@@ -188,6 +188,75 @@ def BMW(msg):
 . اسم السيارة (موديلها) : {carmodel} .
 ⎯ ⎯ ⎯ ⎯'''
  	bot.reply_to(msg,xx)
-####
+##########
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+import random
+QQs = [    
+    {
+        "question": "ما هو اسم الجسيم الذي يمثل نقطة البداية في الانفجار العظيم ويعتبر بداية الكون؟",
+        "OPI": ["الكوارك", "البوزون هيغز", "البوزون الحوامل", "النيوترينو"],
+        "CO": "البوزون هيغز"
+    },
+    {
+        "question": "ما هو اسم العنصر الأساسي الذي يُشكل جسيمات كل من البروتون والنيوترون؟",
+        "OPI": ["الكوارك", "الليبتون", "الفوتون", "البوزون"],
+        "CO": "الكوارك"
+    }
+]
+
+users = {}
+@bot.message_handler(commands=['go'])
+def start(message):
+    id = message.chat.id
+    name = message.chat.first_name
+    users.setdefault(id, {'score': 0, 'current_QQ': None})
+
+    if users[id]['score'] >= 10000:
+        users[id]['score'] = 0
+        bot.send_message(id, "إجابة صحيحة و فزت بلعبة وحصلت على ( 10000 ) ، وتم تصفير رصيدك")
+        return
+
+    QQ = random.choice(QQs)
+    users[id]['current_QQ'] = QQ
+
+    OPI = QQ['OPI']
+    random.shuffle(OPI)
+    user = users[id]
+    btn = InlineKeyboardMarkup(row_width=2)
+    btn1 = InlineKeyboardButton(f"رصيدك : {user['score']}", callback_data="score")
+    btn4 = [InlineKeyboardButton(option, callback_data=option) for option in OPI]
+    btn.add(*btn4)
+    btn.add(btn1)
+
+    bot.send_message(id, QQ['question'], reply_markup=btn)
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def dudrd(call):
+    id = call.from_user.id
+    name = call.from_user.first_name
+    mssg = call.message.message_id
+
+    user = users[id]
+    QQ = user['current_QQ']
+    CO = QQ['CO']
+    OP = call.data
+
+    if OP == CO:
+        user['score'] += 100
+        if user['score'] >= 10000:
+            user['score'] = 0
+            bot.edit_message_text(f"إجابة صحيحة و فزت بلعبة وحصلت على ( 10000 ) ، وتم تصفير رصيدك", chat_id=id, message_id=mssg)
+        else:
+            bot.edit_message_text(f"إجابة صحيحة , اضفت لك 100 نقطة \n رصيدك هسه : {user['score']}", chat_id=id, message_id=mssg)
+    elif OP == "score":
+        bot.answer_callback_query(call.id, text=f"{user['score']}")
+        return
+    else:
+        user['score'] = 0
+        bot.edit_message_text(f"أجابة خطأ تم تصفير رصيدك الى ( 0 ) ", chat_id=id, message_id=mssg)
+
+    start(call.message)
+    
 print("run")
 bot.polling()
