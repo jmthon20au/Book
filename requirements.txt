@@ -1,6 +1,7 @@
 APScheduler==3.6.3
 
 cachetools==4.2.2
+gdshortener
 
 certifi==2022.6.15
 
