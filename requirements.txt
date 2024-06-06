@@ -1,3 +1,4 @@
+hijri_converter
 APScheduler==3.6.3
 
 cachetools==4.2.2
